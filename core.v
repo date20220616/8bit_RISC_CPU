@@ -1,5 +1,3 @@
-// Core
-// Top-level entity(except core-tb)
 module core(clk, rst);
 input clk, rst;
 wire write_r, read_r, PC_ena, ac_ena, ram_ena, rom_ena;
@@ -15,33 +13,38 @@ ram RAM1(
 .addr(addr),
 .ena(ram_ena),
 .read(ram_read),
-.write(ram_write)); //module ram(data, addr, ena, read, write);
+.write(ram_write)); 
+  
 rom ROM1(
 .data(data),
 .addr(addr),
 .ena(rom_ena),
-.read(rom_read)); //module rom(data, addr, read, ena);
+.read(rom_read)); 
+  
 addr_mux MUX1(
 .addr(addr),
 .sel(ad_sel),
 .ir_ad(ir_ad),
-.pc_ad(pc_ad)); //module addr_mux(addr, sel, ir_ad, pc_ad);
+.pc_ad(pc_ad)); 
+  
 counter PC1(
 .pc_addr(pc_ad),
 .clock(clk),
 .rst(rst),
-.ena(PC_ena)); //module counter(pc_addr, clock, rst, en);
+.ena(PC_ena)); 
+  
 accum ACCUM1(
 .out(accum_out),
 .in(alu_out),
 .ena(ac_ena),
 .clk(clk),
-.rst(rst)); //module accum( in, out, ena, clk, rst);
+.rst(rst)); 
+  
 alu ALU1(
 .alu_out(alu_out),
 .alu_in(data),
 .accum(accum_out),
-.op(ins)); // module alu(alu_out, alu_in, accum, op);
+.op(ins)); 
 
 reg_32 REG1(
 .in(alu_out),
