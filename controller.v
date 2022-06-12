@@ -1,7 +1,7 @@
-module controller(ins, clk, rst, write_r, read_r, PC_en, fetch, ac_ena, ram_ena, rom_ena,ram_write, ram_read, rom_read, ad_sel);
+module controller(ins, clk, rst, write_r, read_r, PC_ena, fetch, ac_ena, ram_ena, rom_ena,ram_write, ram_read, rom_read, ad_sel);
 input clk, rst;   		// clock, reset
 input [2:0] ins;  		// instructions, 3 bits, 8 types
-output reg write_r, read_r, PC_en, ac_ena, ram_ena, rom_ena;
+output reg write_r, read_r, PC_ena, ac_ena, ram_ena, rom_ena;
 output reg ram_write, ram_read, rom_read, ad_sel;
 output reg [1:0] fetch;		// 01: to fetch from RAM/ROM; 10: to fetch from REG
 reg [3:0] state;		// current state
@@ -74,7 +74,7 @@ case(state)
   Sidle: begin
 		 write_r=1'b0;
 		 read_r=1'b0;
-		 PC_en=1'b0; 
+		 PC_ena=1'b0; 
 		 ac_ena=1'b0;
 		 ram_ena=1'b0;
 		 rom_ena=1'b0;
@@ -87,7 +87,7 @@ case(state)
   S0: begin // load IR
 		 write_r=0;
 		 read_r=0;
-		 PC_en=0;
+		 PC_ena=0;
                  ac_ena=0;
 		 ram_ena=0;
 		 rom_ena=1;
@@ -100,7 +100,7 @@ case(state)
   S1: begin
 		 write_r=0;
 		 read_r=0;
-		 PC_en=1; 
+		 PC_ena=1; 
 		 ac_ena=0;
 		 ram_ena=0;
 		 ram_write=0;
@@ -113,7 +113,7 @@ case(state)
      S2: begin
 		 write_r=0;
 		 read_r=0;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=0;
 		 ram_ena=0;
 		 rom_ena=0;
@@ -126,7 +126,7 @@ case(state)
      S3: begin 
 		 write_r=0;
 		 read_r=0;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=1; 
 		 ram_ena=0;
 		 rom_ena=1;
@@ -139,7 +139,7 @@ case(state)
 S4: begin
 		 write_r=0;
 		 read_r=0;
-		 PC_en=1;
+		 PC_ena=1;
 		 ac_ena=1;
 		 ram_ena=0;
 		 ram_write=0;
@@ -154,7 +154,7 @@ S4: begin
 		 begin
 		 write_r=1;
 		 read_r=0;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=1;
 		 ram_ena=0;
 		 ram_write=0;
@@ -168,7 +168,7 @@ S4: begin
 		 begin
 		 write_r=1;
 		 read_r=0;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=1;
 		 ram_ena=1;
 	   	 ram_write=0;
@@ -182,7 +182,7 @@ S4: begin
      S6: begin 
 	         write_r=1'b0;
 		 read_r=1'b0;
-		 PC_en=1'b0; //** not so sure, log: change 1 to 0
+		 PC_ena=1'b0; //** not so sure, log: change 1 to 0
 		 ac_ena=1'b0;
 		 ram_ena=1'b0;
 		 rom_ena=1'b0;
@@ -195,7 +195,7 @@ S4: begin
      S7: begin // STO, reg->ram. step1. read REG
 		 write_r=0;
 		 read_r=1;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=0;
 		 ram_ena=0;
 		 rom_ena=0;
@@ -208,7 +208,7 @@ S4: begin
      S8: begin // STO, step2, write RAM
 		 write_r=0;
 		 read_r=1;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=0;
 		 rom_read=0;
 		 rom_ena=0;
@@ -223,7 +223,7 @@ S4: begin
 		 begin
 		 write_r=0;
 		 read_r=1;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=1;
 		 ram_ena=0;
 		 rom_ena=0;
@@ -237,7 +237,7 @@ S4: begin
 		 begin 
 		 write_r=0;
 		 read_r=1;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=1;
 		 ram_ena=0;
 		 rom_ena=0;
@@ -251,7 +251,7 @@ S4: begin
     S10: begin
 		 write_r=0;
 		 read_r=1;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=0;
 		 ram_ena=0;
 		 rom_ena=0;
@@ -264,7 +264,7 @@ S4: begin
     S11: begin // LDM, step1, write reg
 		 write_r=1;
 		 read_r=0;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=1;
 		 ram_ena=0;	
 		 ram_write=0;
@@ -277,7 +277,7 @@ S4: begin
     S12: begin 
 		 write_r=0;
 		 read_r=0;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=0;
 		 ram_ena=0;
 		 rom_ena=0;
@@ -290,7 +290,7 @@ S4: begin
 default: begin
 		 write_r=0;
 		 read_r=0;
-		 PC_en=0;
+		 PC_ena=0;
 		 ac_ena=0;
 		 ram_ena=0;
 		 rom_ena=0;

@@ -2,7 +2,7 @@
 // Top-level entity(except core-tb)
 module core(clk, rst);
 input clk, rst;
-wire write_r, read_r, PC_en, ac_ena, ram_ena, rom_ena;
+wire write_r, read_r, PC_ena, ac_ena, ram_ena, rom_ena;
 wire ram_write, ram_read, rom_read, ad_sel;
 wire [1:0] fetch;
 wire [7:0] data, addr;
@@ -30,7 +30,7 @@ counter PC1(
 .pc_addr(pc_ad),
 .clock(clk),
 .rst(rst),
-.en(PC_en)); //module counter(pc_addr, clock, rst, en);
+.ena(PC_ena)); //module counter(pc_addr, clock, rst, en);
 accum ACCUM1(
 .out(accum_out),
 .in(alu_out),
@@ -66,7 +66,7 @@ controller CONTROLLER1(
 .rst(rst),
 .write_r(write_r),
 .read_r(read_r),
-.PC_en(PC_en),
+.PC_ena(PC_ena),
 .fetch(fetch),
 .ac_ena(ac_ena),
 .ram_ena(ram_ena),
