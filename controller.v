@@ -28,13 +28,13 @@ parameter Sidle=4'hf,
 			 S10=4'd10,
 			 S11=4'd11,
 			 S12=4'd12;			 
-
+//状态寄存器
 always @(posedge clk or negedge rst) 
 begin
 	if(!rst) state<=Sidle;
 	else state<=next_state;
 end
-	
+//状态组合电路	
 always @* begin
 case(state)
 S1:		begin
@@ -63,7 +63,7 @@ S12:	next_state=S0;
 default: next_state=Sidle;
 endcase
 end
-
+//输出组合逻辑电路
 always@* begin 
 case(state)
   Sidle: begin
