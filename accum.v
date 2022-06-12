@@ -1,6 +1,4 @@
-// Accumulator
 module accum( in, out, ena, clk, rst);
-// a register, to storage result after computing
 input clk,rst,ena;
 input [7:0] in;
 output reg [7:0] out;
