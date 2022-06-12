@@ -10,7 +10,7 @@ initial begin
 clk = 0;
 forever #50 clk = ~clk;
 end
-
+
 initial begin
 rst = 1'b0;
 # 100;
