@@ -1,6 +1,4 @@
 module alu(alu_out, alu_in, accum, op);
-// Arithmetic logic unit
-// to perform arithmetic and logic operations.
 input [2:0] op;
 input [7:0] alu_in,accum;
 output reg [7:0] alu_out;
@@ -28,4 +26,3 @@ always @(*) begin
 		endcase
 end	
 endmodule
-
