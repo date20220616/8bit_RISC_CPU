@@ -29,6 +29,6 @@ memory[65] = 8'b001_00101; //37
 memory[66] = 8'b010_11001; //89
 memory[67] = 8'b001_10101; //53
 end
-
+  //为验证8位RISC_CPU功能，预存指令，旨在将rom中65、66、67位中的三个数进行加法计算，存储到ram[2]中，ram[1]中寄放前两个数加法计算结果。
 assign data = (read&&ena)? memory[addr]:8'hzz;
 endmodule
